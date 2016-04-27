@@ -1,0 +1,24 @@
+03-28 15:01:53 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Constraint "FK4D4D03EDCBA460A9" no encontrado
+Constraint "FK4D4D03EDCBA460A9" not found; SQL statement:
+alter table IMPUESTO_CLIENTE drop constraint FK4D4D03EDCBA460A9 [90057-168]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.command.ddl.AlterTableDropConstraint.update(AlterTableDropConstraint.java:40)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:75)
+	at org.h2.command.Command.executeUpdate(Command.java:230)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:125)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:110)
+	at org.hibernate.tool.hbm2ddl.DatabaseExporter.export(DatabaseExporter.java:64)
+	at org.hibernate.tool.hbm2ddl.SchemaExport.perform(SchemaExport.java:418)
+	at org.hibernate.tool.hbm2ddl.SchemaExport.execute(SchemaExport.java:372)
+	at org.hibernate.tool.hbm2ddl.SchemaExport.create(SchemaExport.java:304)
+	at org.hibernate.tool.hbm2ddl.SchemaExport.create(SchemaExport.java:293)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:487)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1750)
+	at org.erp.accountancy.hibernate.controller.Controller.getSessionFactory(Controller.java:32)
+	at org.erp.accountancy.hibernate.controller.Controller.getSession(Controller.java:39)
+	at org.erp.accountancy.controller.ClienteController.saveClient(ClienteController.java:35)
+	at org.erp.accountancy.test.Mock.saveData(Mock.java:90)
+	at org.erp.accountancy.Main.main(Main.java:23)
