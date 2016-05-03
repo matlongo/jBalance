@@ -65,4 +65,10 @@ public class MovimientosTablePanel extends TablePanel {
 				Double.class, Double.class};
 		return types;
 	}
+
+	@Override
+	public float[] getWidths() {
+		float[] widths = {30, 30, 170, 170, 50, 40, 40};
+		return widths;
+	}
 }

@@ -60,10 +60,10 @@ public class HonorariosPanel extends ButtonsPanel {
 						
 			ClienteController.saveOrUpdateClient(cliente);
 			MovementController.saveMovement(movimiento);
-			
-			JOptionPane.showMessageDialog(PanelManager.getInstance().getMainFrame(), 
-					"Honorarios incorporados exitosamente.");
 		}
+		
+		JOptionPane.showMessageDialog(PanelManager.getInstance().getMainFrame(), 
+				"Honorarios incorporados exitosamente.");
 	}
 
 	@Override

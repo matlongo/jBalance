@@ -71,7 +71,10 @@ public class ClienteTablePanel extends TablePanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Cliente cliente = data.get(originalTable.getSelectedRow());
+				JTable table = getTable();
+				long idCliente = (long)(table.getModel().getValueAt(
+						table.getRowSorter().convertRowIndexToModel(table.getSelectedRow()), 0));
+				Cliente cliente = ClienteController.getCliente(idCliente);
 				ClienteShowingForm form = new ClienteShowingForm(cliente);
 				form.setVisible(true);
 			}
@@ -97,9 +100,7 @@ public class ClienteTablePanel extends TablePanel {
 
 	@Override
 	public List<TableRow> getData() {
-//		CQClientes query = new CQClientes();
-		List<Cliente> clientes = ClienteController.filter(filter);//query.getClientes();
-//		clientes = filter.getFilteredList(clientes);
+		List<Cliente> clientes = ClienteController.filter(filter);
 		data = clientes;
 
 		List<TableRow> rows = new ArrayList<>();
@@ -110,7 +111,7 @@ public class ClienteTablePanel extends TablePanel {
 
 	@Override
 	protected String[] getHeader() {
-		String [] headers = {"LEG.", "APELLIDO Y NOMBRE", "DIRECCION", "CIUDAD", "CUIT", "TELEFONO"};
+		String [] headers = {"LEG.", "APELLIDO Y NOMBRE", "DIRECCION", "CIUDAD", "CUIT"};//, "TELEFONO"};
 		return headers;
 	}
 
@@ -182,5 +183,11 @@ public class ClienteTablePanel extends TablePanel {
 	public Class<?>[] getTypes() {
 		Class<?>[] types = {Long.class, String.class, String.class, String.class, String.class, String.class};
 		return types;
+	}
+
+	@Override
+	public float[] getWidths() {
+		float[] widths = {30, 170, 100, 110, 50};
+		return widths;
 	}
 }

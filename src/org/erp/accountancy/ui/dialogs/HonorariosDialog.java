@@ -34,7 +34,7 @@ public class HonorariosDialog extends JDialog implements ActionListener {
         this.cancelarButton.addActionListener(this);
         
         this.add(panel);
-        this.setSize(new Dimension(411, 156));
+        this.setMinimumSize(new Dimension(441, 176));
 		this.setVisible(true);
     }
                      

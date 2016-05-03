@@ -17,6 +17,7 @@ public class MFDia extends MovFilter {
 		calendar.setTime(mov.getFecha());
 		
 		return calendar.get(Calendar.DAY_OF_MONTH) == movCalendar.get(Calendar.DAY_OF_MONTH)
+				&& calendar.get(Calendar.MONTH) == movCalendar.get(Calendar.MONTH)
 				&& calendar.get(Calendar.YEAR) == Utils.getCurrentYear();
 	}
 

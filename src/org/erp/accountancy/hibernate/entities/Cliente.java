@@ -169,7 +169,6 @@ public class Cliente implements TableRow {
 		case 2: return direccion;
 		case 3: return ciudad;
 		case 4: return cuit;
-		case 5: return telefono;
 		}
 		return null;
 	}

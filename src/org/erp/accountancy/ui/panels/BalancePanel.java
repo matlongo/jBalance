@@ -68,4 +68,10 @@ public class BalancePanel extends TablePanel implements ActionListener {
 		Class<?>[] types = {Long.class, String.class, Double.class, Double.class, Double.class};
 		return types;
 	}
+
+	@Override
+	public float[] getWidths() {
+		float[] widths = {30, 200, 40, 40, 40};
+		return widths;
+	}
 }

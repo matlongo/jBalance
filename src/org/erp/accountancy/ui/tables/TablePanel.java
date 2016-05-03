@@ -106,12 +106,9 @@ public abstract class TablePanel extends JPanel implements ActionListener {
 		this.updateData();
 
 		// setting the widths
-		for (int i = 0; i < headers.length; i++)
-			if (headers[i].toLowerCase().contains("nombre"))
-				table.getColumnModel().getColumn(i).setPreferredWidth(150);
-			else if (headers[i].toLowerCase().contains("leg") || headers[i].toLowerCase().contains("reg")
-					|| headers[i].toLowerCase().contains("id"))
-				table.getColumnModel().getColumn(i).setPreferredWidth(20);
+		int columnIndex = 0;
+		for (float width: this.getWidths())
+			table.getColumnModel().getColumn(columnIndex++).setPreferredWidth((int)width);
 
 		tableModel.setDataVector(data, headers);
 		tableModel.fireTableDataChanged();
@@ -152,7 +149,7 @@ public abstract class TablePanel extends JPanel implements ActionListener {
 		printer.addElement(new SeparatorWrapper(), 2);
 		printer.addElement(new TextWrapper("FECHA DE EMISION: " + Utils.getCurrentDateAsString()), 6);
 		printer.addElement(new SeparatorWrapper(), 6);
-		printer.addElement(new TableWrapper(table));
+		printer.addElement(new TableWrapper(table, this.getWidths()));
 
 		return printer;
 	}
@@ -212,4 +209,11 @@ public abstract class TablePanel extends JPanel implements ActionListener {
 	 * @return Title to be printed
 	 */
 	public abstract String getTitle();
+
+	/**
+	 * Returns the widths of the columns shown in the table.
+	 * 
+	 * @return Array of column's widths
+	 */
+	public abstract float[] getWidths();
 }

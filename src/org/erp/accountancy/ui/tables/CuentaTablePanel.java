@@ -155,12 +155,34 @@ public class CuentaTablePanel extends TablePanel {
 		return "RESUMEN DE " + period;
 	}
 
+	public JTable getPrintableTable(){
+		List<TableRow> rows = this.getData();
+		
+		Object[][] data = new Object[rows.size()+2][getHeader().length];
+		int rowPos = 1;
+		for (TableRow row : rows) {
+			for (int j = 0; j < getHeader().length; j++)
+				data[rowPos][j] = row.getValueAt(j);
+			rowPos++;
+		}
+		
+		data[0][1] = "Saldo Anterior";
+		data[0][4] = totalData[1][1];
+		data[0][5] = totalData[1][2];
+		data[rows.size()+1][1] = "Subtotal";
+		data[rows.size()+1][4] = totalData[2][1];
+		data[rows.size()+1][5] = totalData[2][2];
+		
+		DefaultTableModel model = new DefaultTableModel(data, this.getHeader());
+		return new JTable(model);
+	}
+	
 	@Override
 	public PDFPrinter getPDFPrinter() {
 		PDFPrinter printer = new PDFPrinter(this.getTitle());
 
-		TableWrapper cpTableTotal = new TableWrapper(totalTable);
-		TableWrapper movTable = new TableWrapper(super.getTable());
+//		TableWrapper cpTableTotal = new TableWrapper(totalTable, null);
+		TableWrapper movTable = new TableWrapper(this.getPrintableTable(), this.getWidths());//super.getTable(), this.getWidths());
 		TextWrapper emissionDate = new TextWrapper("FECHA DE EMISION: " + Utils.getCurrentDateAsString());
 		TextWrapper nombre = new TextWrapper("CLIENTE : " + cliente.getNombre());
 		nombre.getFont().setStyle(Font.BOLD);
@@ -170,9 +192,14 @@ public class CuentaTablePanel extends TablePanel {
 		TextWrapper movimientos = new TextWrapper("MOVIMIENTOS");
 		movimientos.getFont().setStyle(Font.BOLD);
 		movimientos.getFont().setStyle(Font.UNDERLINE);
-		TextWrapper totales = new TextWrapper("TOTALES");
+		double remValue = (double)totalData[3][1] - (double)totalData[3][2];
+		String remanente = "       SALDO DEUDOR DE Pesos ....: " + remValue;
+		if ((double)totalData[3][1] < (double)totalData[3][2])
+			remanente = "       SALDO ACREEDOR DE Pesos ....: " + (-remValue);
+		TextWrapper totales = new TextWrapper(remanente);
 		totales.getFont().setStyle(Font.BOLD);
-		totales.getFont().setStyle(Font.UNDERLINE);
+		totales.getFont().setSize(12);
+//		totales.getFont().setStyle(Font.UNDERLINE);
 		
 
 		printer.addElement(new SeparatorWrapper(), 4);
@@ -184,9 +211,9 @@ public class CuentaTablePanel extends TablePanel {
 		printer.addElement(new SeparatorWrapper(), 4);
 		printer.addElement(movimientos, 6);
 		printer.addElement(movTable, 8);
-		printer.addElement(new SeparatorWrapper(), 4);
+		printer.addElement(new SeparatorWrapper(), 8);
 		printer.addElement(totales, 6);
-		printer.addElement(cpTableTotal);
+//		printer.addElement(cpTableTotal);
 		
 		return printer;
 	}
@@ -195,6 +222,12 @@ public class CuentaTablePanel extends TablePanel {
 	public Class<?>[] getTypes() {
 		Class<?>[] types = {Long.class, String.class, Long.class, String.class, Double.class, Double.class};
 		return types;
+	}
+
+	@Override
+	public float[] getWidths() {
+		float [] widths = {30, 170, 30, 50, 40, 40};
+		return widths;
 	}
 	
 }

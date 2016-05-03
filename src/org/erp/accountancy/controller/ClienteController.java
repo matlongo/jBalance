@@ -118,9 +118,11 @@ public class ClienteController {
 		List<String> cities = new ArrayList<>();
 		List<Cliente> clients = ClienteController.findAll();
 
-		for (Cliente client : clients)
-			if (!cities.contains(client.getCiudad()))
-				cities.add(client.getCiudad());
+		for (Cliente client : clients){
+			String city = client.getCiudad().trim().toUpperCase();
+			if (!cities.contains(city))
+				cities.add(city);
+		}
 
 		return cities;
 	}
@@ -138,12 +140,7 @@ public class ClienteController {
 	public static int updateIdentifier(Cliente cliente, Long id) {
 		if (cliente == null)
 			return 1;
-		
-//		Cliente other = ClienteController.getCliente(id);
-//		if (other != null)
-//			return 1;
-		
-		System.out.println("holaaaaaaaaaaaaaaa");
+
 		try {
 			String hql="update cliente set idCliente=? where idCliente=? ";
 			Query query = Controller.getInstance().getSession().createQuery(hql);
