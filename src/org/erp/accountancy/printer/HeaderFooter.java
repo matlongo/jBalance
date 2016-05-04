@@ -21,9 +21,9 @@ public class HeaderFooter extends PdfPageEventHelper {
 
 	public HeaderFooter() {
 		try {
-			img = Image.getInstance("images/membrete2.png");
+			img = Image.getInstance("images/membrete-2k.png");
 			img.setAlignment(Image.MIDDLE);
-			img.scalePercent(95);
+			img.scalePercent(26);
 		} catch (BadElementException | IOException e) {
 			e.printStackTrace();
 		}
